@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <el-container>
+        <el-header width="200px">校园二手商品交易平台</el-header>
+        <el-container>
+            <el-aside width="200px">商品种类</el-aside>
+            <el-main>商品内容</el-main>
+        </el-container>
+    </el-container>
+
+</div>
+</body>
+<script src="../common/loaderJs.js"></script>
+<script>
+     new Vue({
+        el: "#app",
+        data:{
+            visible:true
+        },
+        methods: {
+            click: function () {
+                var data = {
+                    date:"ddd"
+                }
+                common.networkRequest("",data,"post",function () {
+                    console.log("AAAAAAAAAAAAAAAAAAAAAAAAA");
+                })
+            }
+        }
+    })
+</script>
+<script src="../common/common.js"></script>
+<script>
+    loaderJs.loaderListJs();
+</script>
+<style>
+    .el-header, .el-footer {
+        background-color: #409EFF;
+        color: #333;
+        text-align: center;
+        line-height: 60px;
+    }
+
+    .el-aside {
+        background-color: #67C23A;
+        color: #333;
+        text-align: center;
+        line-height: 600px;
+    }
+
+    .el-main {
+        background-color: #E9EEF3;
+        color: #333;
+        text-align: center;
+        line-height: 160px;
+    }
+
+    body > .el-container {
+        margin-bottom: 40px;
+    }
+
+    .el-container:nth-child(5) .el-aside,
+    .el-container:nth-child(6) .el-aside {
+        line-height: 260px;
+    }
+
+    .el-container:nth-child(7) .el-aside {
+        line-height: 320px;
+    }
+</style>
+</html>
