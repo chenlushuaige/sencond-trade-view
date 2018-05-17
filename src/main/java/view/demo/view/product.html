@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>product</title>
+</head>
+<body>
+<el-row>
+    <el-col :span="8" v-for="item in 10">
+        <el-card :body-style="{ padding: '0px' }">
+            <img src="../images/food.jpg" class="image">
+            <div style="padding: 14px;">
+                <span>好吃的汉堡</span>
+                <div class="bottom clearfix">
+                    <el-button type="text" class="button">操作按钮</el-button>
+                </div>
+            </div>
+        </el-card>
+    </el-col>
+
+</el-row>
+</body>
+
+<style>
+    .time {
+        font-size: 13px;
+        color: #999;
+    }
+
+    .bottom {
+        margin-top: 13px;
+        line-height: 12px;
+    }
+
+    .button {
+        padding: 0;
+        float: right;
+    }
+
+    .image {
+        width: 30%;
+        display: block;
+    }
+
+    .clearfix:before,
+    .clearfix:after {
+        display: table;
+        content: "";
+    }
+
+    .clearfix:after {
+        clear: both
+    }
+</style>
+
+</html>

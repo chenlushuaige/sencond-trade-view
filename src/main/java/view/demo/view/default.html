@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="../common/loaderJs.js"></script>
+<body>
+    <div id="default">
+        <template>
+            <div class="block">
+
+                <el-carousel :interval="4000" type="card" height="200px" width="100px">
+                    <el-carousel-item v-for="item in images" :key="item.type">
+                      <a  target="_blank" :href="'product.html?type='+item.type"><img v-bind:src="item.loc" width="580px"></a>
+                    </el-carousel-item>
+                </el-carousel>
+            </div>
+        </template>
+    </div>
+
+</body>
+<style>
+    .el-carousel__item h3 {
+        color: #475669;
+        font-size: 14px;
+        opacity: 0.75;
+        line-height: 200px;
+        margin: 0;
+    }
+
+    .el-carousel__item:nth-child(2n) {
+        background-color: #99a9bf;
+    }
+
+    .el-carousel__item:nth-child(2n+1) {
+        background-color: #d3dce6;
+    }
+</style>
+<script src="../js/default.js"></script>
+</html>
