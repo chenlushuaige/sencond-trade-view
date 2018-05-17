@@ -11,7 +11,7 @@
     }
     var __version = '';
 
-    var __ctx = global.__ctx = "/demo/src/main/java/com/ddjf/cl/demo";
+    var __ctx = global.__ctx = "/sencond-trade-view/src/main/java/view/demo";
 
     var commonCSS = ["/lib/index.css"];
 
