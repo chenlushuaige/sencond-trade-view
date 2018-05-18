@@ -1,5 +1,5 @@
-var v=new Vue({
-    el:'#default',
+new Vue({
+    el:'#product',
     data: {
         images:[
             {
@@ -23,10 +23,9 @@ var v=new Vue({
     methods: {
 
     },
-    mounted:{
-        getType: function () {
-            debugger 
-            console.log(this.$route.query.id)
-        }
-    }
+    // mounted:{
+    //     // getType: function () {
+    //     //     console.log(this.$route.query.id)
+    //     // }
+    // }
 })

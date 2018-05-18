@@ -36,8 +36,13 @@ var app = new Vue({
 
         ],
         bedroomArr:[
-
+            {
+                name: '四舍',
+                value: 'no4'
+            }
         ],
+
+        productList:[],
 
         ruleForm: {
             name: '',
@@ -46,6 +51,7 @@ var app = new Vue({
             seller:'',
             bedroom:'',
             b_no:'',
+            image:''
         },
 
         rules: {
@@ -69,7 +75,7 @@ var app = new Vue({
             ]
 
         },
-
+        fileList2: [],
         userInfo:{
             name:'',
             postName:'',
@@ -103,7 +109,7 @@ var app = new Vue({
     },
     methods: {
         menuSelect: function (value) {
-            this.iframeUrl = value+'.html';
+            this.iframeUrl = 'product.html';
             window.frames[0].location.reload();
         },
         // getBaseData: function () {
@@ -221,6 +227,19 @@ var app = new Vue({
         resetForm(formName) {
             this.$refs[formName].resetFields();
         },
+
+        handleRemove(file, fileList) {
+            console.log(file, fileList);
+        },
+        handlePreview(file) {
+            console.log(file);
+        },
+        handleExceed(files, fileList) {
+            this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+        },
+        beforeRemove(file, fileList) {
+            return this.$confirm(`确定移除 ${ file.name }？`);
+        }
     },
     watch: {},
     components: {},
