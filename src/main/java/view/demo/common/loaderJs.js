@@ -18,7 +18,8 @@
     var commonJS = [
         "/lib/jquery-3.2.1.min.js",
         "/lib/vue.js",
-        "/lib/index.js"
+        "/lib/index.js",
+        "/common/common.js"
     ];
 
     var listJs = [];

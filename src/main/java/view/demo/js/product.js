@@ -1,22 +1,26 @@
 new Vue({
     el:'#product',
     data: {
-        images:[
+        products:[
             {
                 loc:'../images/shoes.jpg',
-                type:'shoes'
+                type:'shoes',
+                name:'鞋子'
             },
             {
                 loc:'../images/book.jpg',
-                type:'book'
+                type:'book',
+                name:'书'
             },
             {
                 loc:'../images/timg.jpg',
-                type:'timg'
+                type:'timg',
+                name:'电子产品'
             },
             {
                 loc:'../images/food.jpg',
-                type:'food'
+                type:'food',
+                name:'零食'
             }
         ]
     },

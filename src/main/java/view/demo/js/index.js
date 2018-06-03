@@ -2,36 +2,36 @@ var app = new Vue({
     el: '#app',
     data: {
         index:'1',
-        iframeUrl: "default.html",
+        iframeUrl: "product.html",
         uniqueOpened: true,
         menuArr: [
             {
                 type:'学习文具',
-                value:'LearningStationery'
+                value:'0'
             },
             {
                 type:'生活用品',
-                value:'dailyUse'
+                value:'1'
             },
             {
                 type:'书籍',
-                value:'book'
+                value:'2'
             },
             {
                 type:'零食饮料',
-                value:'SnackDrink'
+                value:'3'
             },
             {
                 type:'电子用品',
-                value:'Electronic'
+                value:'4'
             },
             {
                 type:'体育用品',
-                value:'Sports'
+                value:'5'
             },
             {
                 type:'其他用品',
-                value:'other'
+                value:'6'
             },
 
         ],
@@ -43,48 +43,56 @@ var app = new Vue({
         ],
 
         productList:[],
-
+        condition:{
+            type:'',
+            name:''
+        },
+        action:'搜索 商品/类型',
         ruleForm: {
-            name: '',
+            pName: '',
             type: '',
-            desc: '',
-            seller:'',
+            description: '',
+            uId:'',
             bedroom:'',
-            b_no:'',
-            image:''
+            bNo:'',
+            image:'',
+            num:'',
+            price:''
         },
 
         rules: {
-            name: [
+            pName: [
                 { required: true, message: '请输入物品名称', trigger: 'blur' },
             ],
             type: [
                 { required: true, message: '请选择物品类型', trigger: 'change' }
             ],
-            desc: [
+            description: [
                 { required: true, message: '请填写物品描述', trigger: 'blur' }
             ],
-            seller:[
+            uId:[
                 { required: true, message: '请输入卖家名字', trigger: 'blur' }
             ],
             bedroom:[
                 { required: true, message: '请选择宿舍楼', trigger: 'change' }
             ],
-            b_no:[
+            bNo:[
                 { required: true, message: '请输入寝室号', trigger: 'blur' }
+            ],
+            price:[
+                { type:'number',required: true, message: '请输入单价数字', trigger: 'blur' }
+            ],
+            num:[
+                { type:'number',required: true, message: '请输入数量数字', trigger: 'blur' }
             ]
 
         },
         fileList2: [],
         userInfo:{
-            name:'',
-            postName:'',
+            uId:'',
+            password:'',
         },
-        userInfoDialogVisible:false,
-        editPasswordModel:{
-            password:null,
-            checkPassword:null,
-        },
+
         editPasswordDialogVisible:false,
         editPasswordRules:{
 
@@ -112,20 +120,21 @@ var app = new Vue({
             this.iframeUrl = 'product.html';
             window.frames[0].location.reload();
         },
-        // getBaseData: function () {
-        //     // that = this;
-        //     // common.getBaseData();
-        //     // common.getUserInfo({},function (data) {
-        //     //     if(data && data.isSuccess){
-        //     //         that.userInfo = data.result;
-        //     //         common.setCurrentUserInfo(JSON.stringify(data.result));
-        //     //         that.getPageMenu(data.result.userId);
-        //     //     }
-        //     // });
-        // },
+        getBaseData: function () {
+            var that = this;
+            var url="http;//localhost:11005/platform/user"
+            var data=that.userInfo;
+            common.networkRequest(url,JSON.stringify(data),'post',function (data) {
+                if(data && data.isSuccess){
+                    that.userInfo = data.result;
+                    common.setCurrentUserInfo(JSON.stringify(data.result));
+                    that.getPageMenu(data.result.userId);
+                }
+            });
+        },
         getPageMenu:function (userId) {
             var data={userId:userId};
-            var that = this
+            var that = this;
             common.networkRequest(config.getMenuUrlParam,{}
                 ,"post",function(data){
                     common.loggerOut("获取菜单。。。");
@@ -214,10 +223,30 @@ var app = new Vue({
             this.editPasswordDialogVisible=true;
 
         },
-        submitForm(formName) {
+
+
+
+        search:function () {
+            var that=this;
+            var url="http://localhost:11005/platform/index";
+            that.condition.name=that.condition.type;
+            common.networkRequest(url,JSON.stringify(that.condition),'post',function (data) {
+                if(data.isSuccess){
+                    console.log(data);
+                }
+            })
+        },
+
+        submitForm: function(formName) {
+            var url="http://localhost:11005/platform/addProduct";
+            var data=this.ruleForm;debugger
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    alert('submit!');
+                   common.networkRequest(url,JSON.stringify(data),'post',function (data) {
+                       if(data.isSuccess){
+                           console.log(data);
+                       }
+                   })
                 } else {
                     console.log('error submit!!');
             return false;
@@ -239,12 +268,21 @@ var app = new Vue({
         },
         beforeRemove(file, fileList) {
             return this.$confirm(`确定移除 ${ file.name }？`);
+        },
+        getUserInfo: function () {
+            this.userInfo.uId=window.localStorage.uId;
+            this.userInfo.password=window.localStorage.password;
+        },
+        order: function () {
+            this.action="搜索 订单号";
+            this.iframeUrl="order.html";
         }
     },
     watch: {},
     components: {},
-    // mounted: function () {
-    //     this.getBase Data();
-    // }
+    mounted: function () {
+        //this.getBaseData();
+        this.getUserInfo();
+    }
 });
 

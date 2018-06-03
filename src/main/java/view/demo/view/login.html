@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+</head>
+<script src="../common/loaderJs.js"></script>
+<!--<script src="../lib/md5/md5.js"></script>-->
+<body>
+<div id="loginId" style="text-align: center;">
+    <el-form :model="loginParam" status-icon :rules="rules2" ref="loginParam" label-width="100px"
+             class="demo-ruleForm"  label-width="100px" style="text-align: -webkit-center;">
+        <div  style="font-size:20px;width:100%;text-align:center;">校园二手商品交易平台</div>
+        <el-form-item label="账号" prop="uId"  style="width:400px;margin-top:90px">
+            <el-input type="text" v-model="loginParam.uId" @keyup.enter.native="submitForm('loginParam')" auto-complete="off"  ></el-input>
+        </el-form-item>
+        <el-form-item label="密码" prop="password" style="width:400px">
+            <el-input type="password" @keyup.enter.native="submitForm('loginParam')" v-model="loginParam.password" auto-complete="off"  ></el-input>
+        </el-form-item>
+        <el-form-item label="" style="height: 15px;margin-top: -15px;">
+            <el-checkbox-group v-model="loginParam.rememberPasswrod">
+                <el-checkbox label="记住密码" name="rememberPasswrod"></el-checkbox>
+            </el-checkbox-group>
+        </el-form-item>
+
+        <el-form-item>
+            <el-button type="primary" @click="submitForm('loginParam')">提交</el-button>
+            <el-button @click="resetForm('loginParam')">重置</el-button>
+        </el-form-item>
+    </el-form>
+</div>
+<script>
+    var app = new Vue({
+        el: '#loginId',
+        data: {
+            loginParam: {
+                password: null,
+                uId: null,
+                rememberPasswrod:true
+            },
+            rules2: {
+                uId: [
+                    {required: true, message: '请输入账户', trigger: 'blur'},
+                ],
+                password: [
+                    {required: true, message: '请输入密码', trigger: 'blur'},
+                ]
+            }
+        },
+        methods: {
+            submitForm(formName) {
+
+                that = this;
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        if(that.loginParam.rememberPasswrod){
+                            window.localStorage.uId = that.loginParam.uId;
+                            window.localStorage.password = that.loginParam.password;
+                        }
+                        var data = {
+                            password:that.loginParam.password,
+                            uId:that.loginParam.uId
+                        };
+                        var url="http://localhost:11005/platform/user"
+                        common.networkRequest(url,JSON.stringify(data),"post",function(data){
+
+                            if(data.isSuccess){
+                                window.location.href='index.html';
+                            }else{
+                                window.alert(data.msg);
+                            }
+                        });
+
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
+            },
+            resetForm(formName) {
+                this.$refs[formName].resetFields();
+            },
+
+        }
+    });
+    app.loginParam.password = window.localStorage.password;
+    app.loginParam.uId = window.localStorage.uId;
+</script>
+</body>
+</html>

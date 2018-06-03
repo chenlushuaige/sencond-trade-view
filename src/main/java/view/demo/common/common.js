@@ -22,7 +22,7 @@
     function networkRequest(url, data, type, callback, contentType) {
 
 
-        var requestUrl = "http://localhost:11000/core-consumer/index"
+        var requestUrl = url;
 
         $.ajax({
             url: requestUrl,
@@ -31,7 +31,7 @@
             dataType: "json",
             contentType: contentType || "application/json",
             success: function (data) {
-                common.loggerOut(" 请求url===" + url + "  return==" + data);
+                console.log(" 请求url===" + url + "  return==" + data);
                 callback & callback(data);
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {

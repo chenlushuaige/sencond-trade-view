@@ -8,14 +8,13 @@
 <body>
 <div id="product">
     <el-row>
-        <el-col :span="8" v-for="(o, index) in images" :key="o.value" :offset="2">
+        <el-col :span="8" v-for="(o, index) in products" :key="o.value" :offset="2">
             <el-card :body-style="{ padding: '10px' }">
                 <img :src="o.loc" class="image">
                 <div style="padding: 0px;">
-                    <span>好吃的汉堡</span>
                     <div class="bottom clearfix">
-
-                        <el-button type="text" class="button">操作按钮</el-button>
+                        {{o.name}}
+                        <el-button type="text" class="button" >加入购物车</el-button>
                     </div>
                 </div>
             </el-card>
@@ -41,7 +40,8 @@
     }
 
     .image {
-        width: 55%;
+        width: 300px;
+        height:200px;
         display: block;
     }
 
